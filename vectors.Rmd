@@ -129,7 +129,7 @@ y <- rep(x, 1000)
 pryr::object_size(y)
 ```
 
-`y` doesn't take up 1,000x as much memory as `x`, because each element of `y` is just a pointer to that same string. A pointer is 8 bytes, so 1000 pointers to a 136 B string is 8 * 1000 + 136 = 8.13 kB.
+`y` doesn't take up 1,000x as much memory as `x`, because each element of `y` is just a pointer to that same string. A pointer is 8 bytes, so 1000 pointers to a 152 B string is 8 * 1000 + 152 = 8.14 kB.
 
 ### Missing values
 
@@ -237,8 +237,6 @@ Sometimes you want to do different things based on the type of vector. One optio
 | `is_atomic()`    |  x  |  x  |  x  |  x  |      |
 | `is_list()`      |     |     |     |     |  x   |
 | `is_vector()`    |  x  |  x  |  x  |  x  |  x   |
-
-Each predicate also comes with a "scalar" version, like `is_scalar_atomic()`, which checks that the length is 1. This is useful, for example, if you want to check that an argument to your function is a single logical value.
 
 ### Scalars and recycling rules
 

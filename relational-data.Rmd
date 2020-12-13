@@ -109,7 +109,7 @@ There are two types of keys:
   For example, `flights$tailnum` is a foreign key because it appears in the 
   `flights` table where it matches each flight to a unique plane.
 
-A variable can be both a primary key _and_ a foreign key. For example, `origin` is part of the `weather` primary key, and is also a foreign key for the `airport` table.
+A variable can be both a primary key _and_ a foreign key. For example, `origin` is part of the `weather` primary key, and is also a foreign key for the `airports` table.
 
 Once you've identified the primary keys in your tables, it's good practice to verify that they do indeed uniquely identify each observation. One way to do that is to `count()` the primary keys and look for entries where `n` is greater than one:
 
@@ -154,8 +154,8 @@ A primary key and the corresponding foreign key in another table form a __relati
     (You might need to install some packages and read some documentation.)
 
 1.  Draw a diagram illustrating the connections between the `Batting`,
-    `Master`, and `Salaries` tables in the Lahman package. Draw another diagram
-    that shows the relationship between `Master`, `Managers`, `AwardsManagers`.
+    `People`, and `Salaries` tables in the Lahman package. Draw another diagram
+    that shows the relationship between `People`, `Managers`, `AwardsManagers`.
 
     How would you characterise the relationship between the `Batting`,
     `Pitching`, and `Fielding` tables?

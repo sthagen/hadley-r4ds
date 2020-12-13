@@ -24,7 +24,7 @@ R Markdown integrates a number of R packages and external tools. This means that
 *   R Markdown Reference Guide: _Help > Cheatsheets > R Markdown Reference 
     Guide_.
 
-Both cheatsheets are also available at <http://rstudio.com/cheatsheets>.
+Both cheatsheets are also available at <https://rstudio.com/resources/cheatsheets/>.
 
 ### Prerequisites
 
@@ -189,7 +189,7 @@ The most important set of options controls if your code block is executed and wh
     and want to deliberately include an error. The default, `error = FALSE` causes 
     knitting to fail if there is a single error in the document.
     
-The following table summarises which types of output each option supressess:
+The following table summarises which types of output each option suppresses:
 
 Option             | Run code | Show code | Output | Plots | Messages | Warnings 
 -------------------|----------|-----------|--------|-------|----------|---------
@@ -354,7 +354,7 @@ params:
 
 In RStudio, you can click the "Knit with Parameters" option in the Knit dropdown menu to set parameters, render, and preview the report in a single user friendly step. You can customise the dialog by setting other options in the header. See <http://rmarkdown.rstudio.com/developer_parameterized_reports.html#parameter_user_interfaces> for more details.
 
-Alternatively, if you need to produce many such paramterised reports, you can call `rmarkdown::render()` with a list of `params`:
+Alternatively, if you need to produce many such parameterised reports, you can call `rmarkdown::render()` with a list of `params`:
 
 ```{r eval = FALSE}
 rmarkdown::render("fuel-economy.Rmd", params = list(my_class = "suv"))
