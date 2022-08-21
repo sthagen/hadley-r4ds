@@ -330,7 +330,7 @@ str_detect(neg, pattern)
 
 It's typically much easier to come up with positive examples than negative examples, because it takes some time until you're good enough with regular expressions to predict where your weaknesses are.
 Nevertheless they're still useful; even if you don't get them correct right away, you can slowly accumulate them as you work on your problem.
-If you you later get more into programming and learn about unit tests, you can then turn these examples into automated test that ensure you never you never make the same mistake twice.)
+If you you later get more into programming and learn about unit tests, you can then turn these examples into automated test that ensure you never make the same mistake twice.)
 
 ### Boolean operations {#sec-boolean-operations}
 
@@ -356,7 +356,7 @@ There's no "and" operator built in to regular expressions so we have to tackle i
 words[str_detect(words, "a.*b|b.*a")]
 ```
 
-Its simpler to combine the results of two calls to `str_detect()`:
+It's simpler to combine the results of two calls to `str_detect()`:
 
 ```{r}
 words[str_detect(words, "a") & str_detect(words, "b")]
@@ -456,7 +456,7 @@ All of these are these described below.
 ### Matching a repeated pattern
 
 You can refer back to previously matched text inside parentheses by using **back reference**.
-Back references are usually numbered: `\1` refers to the match contained in the first parentheses, `\2` in the the second parentheses, and so on.
+Back references are usually numbered: `\1` refers to the match contained in the first parenthesis, `\2` in the second parenthesis, and so on.
 For example, the following pattern finds all fruits that have a repeated pair of letters:
 
 ```{r}
