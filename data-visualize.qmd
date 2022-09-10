@@ -15,7 +15,7 @@ R has several systems for making graphs, but ggplot2 is one of the most elegant 
 ggplot2 implements the **grammar of graphics**, a coherent system for describing and building graphs.
 With ggplot2, you can do more and faster by learning one system and applying it in many places.
 
-If you'd like to learn more about the theoretical underpinnings of ggplot2, you might enjoy reading "The Layered Grammar of Graphics", <http://vita.had.co.nz/papers/layered-grammar.pdf>, the scientific paper that discusses the theoretical underpinnings..
+If you'd like to learn more about the theoretical underpinnings of ggplot2, you might enjoy reading "The Layered Grammar of Graphics", <https://vita.had.co.nz/papers/layered-grammar.pdf>, the scientific paper that discusses the theoretical underpinnings..
 
 ### Prerequisites
 
@@ -214,7 +214,7 @@ In hindsight, these cars were unlikely to be hybrids since they have large engin
 
 In the above example, we mapped `class` to the color aesthetic, but we could have mapped `class` to the size aesthetic in the same way.
 In this case, the exact size of each point would reveal its class affiliation.
-We get a *warning* here, because mapping an unordered variable (`class`) to an ordered aesthetic (`size`) is generally not a good idea.
+We get a *warning* here: mapping an unordered variable (`class`) to an ordered aesthetic (`size`) is generally not a good idea because it implies a ranking that does not in fact exist.
 
 ```{r}
 #| fig-alt: >
@@ -396,8 +396,10 @@ One way to add additional variables to a plot is by mapping them to an aesthetic
 Another way, which is particularly useful for categorical variables, is to split your plot into **facets**, subplots that each display one subset of the data.
 
 To facet your plot by a single variable, use `facet_wrap()`.
-The first argument of `facet_wrap()` is a formula, which you create with `~` followed by a variable name (here, "formula" is the bane if a data structure in R, not a synonym for "equation").
+The first argument of `facet_wrap()` is a formula[^data-visualize-1], which you create with `~` followed by a variable name.
 The variable that you pass to `facet_wrap()` should be discrete.
+
+[^data-visualize-1]: Here "formula" is the name of the type of thing created by `~`, not a synonym for "equation".
 
 ```{r}
 #| fig-alt: >
@@ -409,9 +411,8 @@ ggplot(data = mpg) +
   facet_wrap(~cyl)
 ```
 
-To facet your plot on the combination of two variables, add `facet_grid()` to your plot call.
-The first argument of `facet_grid()` is also a formula.
-This time the formula should contain two variable names separated by a `~`.
+To facet your plot with the combination of two variables, switch from `facet_wrap()` to `facet_grid()`.
+The first argument of `facet_grid()` is also a formula, but now it's a double sided formula: `rows ~ cols`.
 
 ```{r}
 #| fig-alt: >
@@ -425,8 +426,6 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy)) + 
   facet_grid(drv ~ cyl)
 ```
-
-If you prefer to not facet in the rows or columns dimension, use a `.` instead of a variable name, e.g. `+ facet_grid(. ~ cyl)`.
 
 ### Exercises
 
@@ -552,11 +551,11 @@ For instance, to make the plots above, you can use this code:
 ```{r}
 #| eval: false
 
-# left
+# Left
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy))
 
-# right
+# Right
 ggplot(data = mpg) + 
   geom_smooth(mapping = aes(x = displ, y = hwy))
 ```
@@ -604,14 +603,14 @@ If this makes you excited, buckle up.
 You will learn how to place multiple geoms in the same plot very soon.
 
 ggplot2 provides more than 40 geoms, and extension packages provide even more (see <https://exts.ggplot2.tidyverse.org/gallery/> for a sampling).
-The best way to get a comprehensive overview is the ggplot2 cheatsheet, which you can find at <http://rstudio.com/resources/cheatsheets>.
+The best way to get a comprehensive overview is the ggplot2 cheatsheet, which you can find at <https://rstudio.com/resources/cheatsheets>.
 To learn more about any single geom, use the help (e.g. `?geom_smooth`).
 
 Many geoms, like `geom_smooth()`, use a single geometric object to display multiple rows of data.
 For these geoms, you can set the `group` aesthetic to a categorical variable to draw multiple objects.
 ggplot2 will draw a separate object for each unique value of the grouping variable.
 In practice, ggplot2 will automatically group the data for these geoms whenever you map an aesthetic to a discrete variable (as in the `linetype` example).
-It is convenient to rely on this feature because the group aesthetic by itself does not add a legend or distinguishing features to the geoms.
+It is convenient to rely on this feature because the `group` aesthetic by itself does not add a legend or distinguishing features to the geoms.
 
 ```{r}
 #| layout-ncol: 3
@@ -725,10 +724,20 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
       geom_smooth(se = FALSE)
     ```
 
-3.  What does `show.legend = FALSE` do?
-    What happens if you remove it?\
+3.  Earlier in this chapter we used `show.legend` without explaining it:
 
-    Why do you think we used it earlier in the chapter?
+    ```{r}
+    #| eval: false
+    ggplot(data = mpg) +
+      geom_smooth(
+        mapping = aes(x = displ, y = hwy, color = drv),
+        show.legend = FALSE
+      )
+    ```
+
+    What does `show.legend = FALSE` do here?
+    What happens if you remove it?
+    Why do you think we used it earlier?
 
 4.  What does the `se` argument to `geom_smooth()` do?
 
@@ -824,11 +833,16 @@ Other graphs, like bar charts, calculate new values to plot:
 -   boxplots compute a robust summary of the distribution and then display that summary as a specially formatted box.
 
 The algorithm used to calculate new values for a graph is called a **stat**, short for statistical transformation.
-The figure below describes how this process works with `geom_bar()`.
+@fig-vis-stat-bar shows how this process works with `geom_bar()`.
 
 ```{r}
+#| label: fig-vis-stat-bar
 #| echo: false
 #| out-width: "100%"
+#| fig-cap: >
+#|   When create a bar chart we first start with the raw data, then
+#|   aggregate it to count the number of observations in each bar,
+#|   and finally map those computed variables to plot aesthetics.
 #| fig-alt: >
 #|   A figure demonstrating three steps of creating a bar chart. 
 #|   Step 1. geom_bar() begins with the diamonds data set. Step 2. geom_bar() 
@@ -926,7 +940,7 @@ However, there are three reasons why you might need to use a stat explicitly:
 
 ggplot2 provides more than 20 stats for you to use.
 Each stat is a function, so you can get help in the usual way, e.g. `?stat_bin`.
-To see a complete list of stats, try the [ggplot2 cheatsheet](http://rstudio.com/resources/cheatsheets).
+To see a complete list of stats, try the [ggplot2 cheatsheet](https://rstudio.com/resources/cheatsheets).
 
 ### Exercises
 
@@ -1149,7 +1163,8 @@ There are three other coordinate systems that are occasionally helpful.
     ```
 
 -   `coord_quickmap()` sets the aspect ratio correctly for maps.
-    This is very important if you're plotting spatial data with ggplot2 (which unfortunately we don't have the space to cover in this book).
+    This is very important if you're plotting spatial data with ggplot2.
+    We don't have the space to discuss maps in this book, but you can learn more in the [Maps chapter](https://ggplot2-book.org/maps.html) of *ggplot2: Elegant graphics for data analysis*.
 
     ```{r}
     #| layout-ncol: 2
