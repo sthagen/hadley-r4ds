@@ -25,6 +25,11 @@ If you're familiar with SQL, you should find the ideas in this chapter familiar,
 
 ### Prerequisites
 
+::: callout-important
+This chapter relies on features only found in dplyr 1.1.0, which is still in development.
+If you want to live life on the edge you can get the dev version with `devtools::install_github("tidyverse/dplyr")`.
+:::
+
 We'll explore the five related datasets from nycflights13 using the join functions from dplyr.
 
 ```{r}
@@ -104,7 +109,7 @@ You don't need to understand the whole thing; you just need to understand the ch
 #| fig-cap: >
 #|   Connections between all five data frames in the nycflights13 package.
 #|   Variables making up a primary key are coloured grey, and are connected
-#|   to their correpsonding foreign keys with arrows.
+#|   to their corresponding foreign keys with arrows.
 #| fig-alt: >
 #|   Diagram showing the relationships between airports, planes, flights, 
 #|   weather, and airlines datasets from the nycflights13 package. The faa
@@ -329,7 +334,8 @@ airports |>
 ```
 
 **Anti-joins** are the opposite: they return all rows in `x` that don't have a match in `y`.
-They're useful for finding missing values that are **implicit** in the data, the topic of @sec-missing-implicit. Implicitly missing values don't show up as explicit `NA`s but instead only exist as an absence.
+They're useful for finding missing values that are **implicit** in the data, the topic of @sec-missing-implicit.
+Implicitly missing values don't show up as explicit `NA`s but instead only exist as an absence.
 For example, we can find rows that should be in `airports` by looking for flights that don't have a matching destination:
 
 ```{r}
@@ -915,7 +921,7 @@ parties <- tibble(
 ```
 
 Now we can match each employee to their party.
-This is a good place to use `unmatched = "error"` because I want to quickly find out if any employees didn't get assigned a party.
+This is a good place to use `unmatched = "error"` because we want to quickly find out if any employees didn't get assigned a party.
 
 ```{r}
 employees |> 
@@ -933,7 +939,7 @@ employees |>
     x |> full_join(y, by = "key", keep = TRUE)
     ```
 
-2.  When finding if any party period overlapped with another party period I used `q < q` in the `join_by()`?
+2.  When finding if any party period overlapped with another party period we used `q < q` in the `join_by()`?
     Why?
     What happens if you remove this inequality?
 
