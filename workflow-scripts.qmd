@@ -298,7 +298,7 @@ Don't worry about the details, you'll learn them later in the book.
 
 library(tidyverse)
 
-ggplot(diamonds, aes(carat, price)) + 
+ggplot(diamonds, aes(x = carat, y = price)) + 
   geom_hex()
 ggsave("diamonds.pdf")
 
@@ -351,7 +351,7 @@ Then everything you need is in one place and cleanly separated from all the othe
     Practice using it!
 
 2.  What other common mistakes will RStudio diagnostics report?
-    Read <https://support.rstudio.com/hc/en-us/articles/205753617-Code-Diagnostics> to find out.
+    Read <https://support.posit.co/hc/en-us/articles/205753617-Code-Diagnostics> to find out.
 
 ## Summary
 
@@ -359,4 +359,4 @@ In this chapter, you've learned how to organize your R code in scripts (files) a
 Much like code style, this may feel like busywork at first.
 But as you accumulate more code across multiple projects, you'll learn to appreciate how a little up front organisation can save you a bunch of time down the road.
 
-Next up, we'll switch back to data science tooling to talk about exploratory data analysis (or EDA for short), a philosophy and set of tools that you can use with your data to start to get a sense of what's going on.
+Next up, you'll learn about how to get help and how to ask good coding questions.

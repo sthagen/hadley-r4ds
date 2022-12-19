@@ -1,8 +1,9 @@
-# Workflow: Getting help {#sec-workflow-getting-help}
+# Workflow: getting help {#sec-workflow-getting-help}
 
 ```{r}
 #| results: "asis"
 #| echo: false
+
 source("_common.R")
 status("polishing")
 ```
@@ -30,7 +31,7 @@ A good reprex makes it easier for other people to help you, and often you'll fig
 There are two parts to creating a reprex:
 
 -   First, you need to make your code reproducible.
-    This means that you need to capture everything, i.e., include any `library()` calls and create all necessary objects.
+    This means that you need to capture everything, i.e. include any `library()` calls and create all necessary objects.
     The easiest way to make sure you've done this is to use the reprex package.
 
 -   Second, you need to make it minimal.
@@ -128,5 +129,4 @@ This chapter concludes the Whole Game part of the book.
 You've now seen the most important parts of the data science process: visualization, transformation, tidying and importing.
 Now you've got a holistic view of whole process and we start to get into the the details of small pieces.
 
-The next part of the book, Transform, goes into depth into the different types of variables that you might encounter: logical vectors, numbers, strings, factors, and date-times, and covers important related topics like tibbles, regular expression, missing values, and joins.
-There's no need to read these chapters in order; dip in and out as needed for the specific data that you're working with.
+The next part of the book, Visualize, does a deeper dive into the grammar of graphics and creating data visualizations with ggplot2, showcases how to use the tools you've learned so far to conduct exploratory data analysis, and introduces good practices for creating plots for communication.

@@ -34,8 +34,13 @@ book:
         - workflow-style.qmd
         - data-import.qmd
         - workflow-scripts.qmd
-        - EDA.qmd
         - workflow-help.qmd
+
+    - part: visualize.qmd
+      chapters:
+        - layers.qmd
+        - EDA.qmd
+        - communication.qmd
 
     - part: transform.qmd
       chapters:
@@ -48,10 +53,11 @@ book:
         - missing-values.qmd
         - joins.qmd
 
-    - part: wrangle.qmd
+    - part: import.qmd
       chapters:
         - spreadsheets.qmd
         - databases.qmd
+        - arrow.qmd
         - rectangling.qmd
         - webscraping.qmd
 
@@ -64,7 +70,6 @@ book:
     - part: communicate.qmd
       chapters:
         - quarto.qmd
-        - communicate-plots.qmd
         - quarto-formats.qmd
         - quarto-workflow.qmd
 
