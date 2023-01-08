@@ -18,6 +18,11 @@ We'll finish off by covering the summary functions that pair well with `summariz
 
 ### Prerequisites
 
+::: callout-important
+This chapter relies on features only found in dplyr 1.1.0, which is still in development.
+If you want to live on the edge, you can get the dev versions with `devtools::install_github("tidyverse/dplyr")`.
+:::
+
 This chapter mostly uses functions from base R, which are available without loading any packages.
 But we still need the tidyverse because we'll use these base R functions inside of tidyverse functions like `mutate()` and `filter()`.
 Like in the last chapter, we'll use real examples from nycflights13, as well as toy examples made with `c()` and `tribble()`.
@@ -179,7 +184,7 @@ flights |>
 
 The code runs without error, but it doesn't return what you want.
 Because of the recycling rules it finds flights in odd numbered rows that departed in January and flights in even numbered rows that departed in February.
-And unforuntately there's no warning because `flights` has an even number of rows.
+And unfortunately there's no warning because `flights` has an even number of rows.
 
 To protect you from this type of silent failure, most tidyverse functions use a stricter form of recycling that only recycles single values.
 Unfortunately that doesn't help here, or in many other cases, because the key computation is performed by the base R function `==`, not `filter()`.
@@ -395,7 +400,7 @@ cut(y, breaks = c(0, 5, 10, 15, 20))
 
 See the documentation for other useful arguments like `right` and `include.lowest`, which control if the intervals are `[a, b)` or `(a, b]` and if the lowest interval should be `[a, b]`.
 
-### Cumulative and rolling aggregates
+### Cumulative and rolling aggregates {#sec-cumulative-and-rolling-aggregates}
 
 Base R provides `cumsum()`, `cumprod()`, `cummin()`, `cummax()` for running, or cumulative, sums, products, mins and maxes.
 dplyr provides `cummean()` for cumulative means.
@@ -518,7 +523,7 @@ lead(x)
 
 You can lead or lag by more than one position by using the second argument, `n`.
 
-### Consecutive identifies
+### Consecutive identifiers
 
 Sometimes you want to start a new group every time some event occurs.
 For example, when you're looking at website data, it's common to want to break up events into sessions, where a session is defined as a gap of more than x minutes since the last activity.
@@ -544,16 +549,15 @@ events
 ```
 
 But how do we go from that logical vector to something that we can `group_by()`?
-`consecutive_id()` comes to the rescue:
+`cumsum()` from @sec-cumulative-and-rolling-aggregates comes to the rescue as each occurring gap, i.e., `gap` is `TRUE`, increments `group` by one (see @sec-numeric-summaries-of-logicals on the numerical interpretation of logicals):
 
 ```{r}
 events |> mutate(
-  group = consecutive_id(gap)
+  group = cumsum(gap)
 )
 ```
 
-`consecutive_id()` starts a new group every time one of its arguments changes.
-That makes it useful both here, with logical vectors, and in many other place.
+Another approach for creating grouping variables is `consecutive_id()`, which starts a new group every time one of its arguments changes.
 For example, inspired by [this stackoverflow question](https://stackoverflow.com/questions/27482712), imagine you have a data frame with a bunch of repeated values:
 
 ```{r}
