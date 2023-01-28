@@ -4,7 +4,7 @@
 #| results: "asis"
 #| echo: false
 source("_common.R")
-status("polishing")
+status("complete")
 ```
 
 ## Introduction
@@ -104,9 +104,7 @@ There are a couple of variants of `n()` that you might find useful:
     ```{r}
     flights |> 
       group_by(dest) |> 
-      summarize(
-        carriers = n_distinct(carrier)
-      ) |> 
+      summarize(carriers = n_distinct(carrier)) |> 
       arrange(desc(carriers))
     ```
 
@@ -122,6 +120,7 @@ There are a couple of variants of `n()` that you might find useful:
     Weighted counts are a common problem so `count()` has a `wt` argument that does the same thing:
 
     ```{r}
+    #| results: false
     flights |> count(tailnum, wt = distance)
     ```
 
@@ -549,7 +548,7 @@ events
 ```
 
 But how do we go from that logical vector to something that we can `group_by()`?
-`cumsum()` from @sec-cumulative-and-rolling-aggregates comes to the rescue as each occurring gap, i.e., `gap` is `TRUE`, increments `group` by one (see @sec-numeric-summaries-of-logicals on the numerical interpretation of logicals):
+`cumsum()` from @sec-cumulative-and-rolling-aggregates comes to the rescue as each occurring gap, i.e. `gap` is `TRUE`, increments `group` by one (see @sec-numeric-summaries-of-logicals on the numerical interpretation of logicals):
 
 ```{r}
 events |> mutate(
@@ -654,7 +653,7 @@ flights |>
     .groups = "drop"
   ) |> 
   ggplot(aes(x = mean, y = median)) + 
-  geom_abline(slope = 1, intercept = 0, color = "white", size = 2) +
+  geom_abline(slope = 1, intercept = 0, color = "white", linewidth = 2) +
   geom_point()
 ```
 

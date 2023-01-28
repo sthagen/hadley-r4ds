@@ -4,7 +4,7 @@
 #| results: "asis"
 #| echo: false
 source("_common.R")
-status("polishing")
+status("complete")
 ```
 
 ## Introduction
@@ -33,6 +33,7 @@ Don't forget that you'll need to install those packages with `install.packages()
 
 ```{r}
 #| label: setup
+#| message: false
 
 library(tidyverse)
 library(ggrepel)
@@ -420,7 +421,7 @@ Remember, in addition to `geom_text()`, you have many other geoms in ggplot2 ava
 A couple ideas:
 
 -   Use `geom_hline()` and `geom_vline()` to add reference lines.
-    We often make them thick (`size = 2`) and white (`color = white`), and draw them underneath the primary data layer.
+    We often make them thick (`linewidth = 2`) and white (`color = white`), and draw them underneath the primary data layer.
     That makes them easy to see, without drawing attention away from the data.
 
 -   Use `geom_rect()` to draw a rectangle around points of interest.

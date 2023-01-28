@@ -4,7 +4,7 @@
 #| results: "asis"
 #| echo: false
 source("_common.R")
-status("polishing")
+status("complete")
 ```
 
 ## Introduction
@@ -20,7 +20,7 @@ We'll finish off with `if_else()` and `case_when()`, two useful functions for ma
 ### Prerequisites
 
 Most of the functions you'll learn about in this chapter are provided by base R, so we don't need the tidyverse, but we'll still load it so we can use `mutate()`, `filter()`, and friends to work with data frames.
-We'll also continue to draw examples from the nycflights13 dataset.
+We'll also continue to draw examples from the `nycflights13::flights` dataset.
 
 ```{r}
 #| label: setup
@@ -404,7 +404,7 @@ This works, but what if we wanted to also compute the average delay for flights 
 We'd need to perform a separate filter step, and then figure out how to combine the two data frames together[^logicals-3].
 Instead you could use `[` to perform an inline filtering: `arr_delay[arr_delay > 0]` will yield only the positive arrival delays.
 
-[^logicals-3]: We'll cover this in @sec-joins\]
+[^logicals-3]: We'll cover this in @sec-joins.
 
 This leads to:
 
@@ -488,6 +488,7 @@ It takes pairs that look like `condition ~ output`.
 This means we could recreate our previous nested `if_else()` as follows:
 
 ```{r}
+x <- c(-3:3, NA)
 case_when(
   x == 0   ~ "0",
   x < 0    ~ "-ve", 
@@ -523,7 +524,7 @@ And note that if multiple conditions match, only the first will be used:
 ```{r}
 case_when(
   x > 0 ~ "+ve",
-  x > 3 ~ "big"
+  x > 2 ~ "big"
 )
 ```
 
@@ -538,12 +539,14 @@ flights |>
       arr_delay < -30       ~ "very early",
       arr_delay < -15       ~ "early",
       abs(arr_delay) <= 15  ~ "on time",
-      arr_delay > 15        ~ "late",
-      arr_delay > 60        ~ "very late",
+      arr_delay < 60        ~ "late",
+      arr_delay < Inf       ~ "very late",
     ),
     .keep = "used"
   )
 ```
+
+Be wary when writing this sort of complex `case_when()` statement; my first two attempts used a mix of `<` and `>` and I kept accidentally creating overlapping conditions.
 
 ### Compatible types
 

@@ -5,12 +5,12 @@
 #| echo: false
 
 source("_common.R")
-status("polishing")
+status("complete")
 ```
 
 ## Introduction
 
-So far, you have learned about importing data from plain text files, e.g., `.csv` and `.tsv` files.
+So far, you have learned about importing data from plain text files, e.g. `.csv` and `.tsv` files.
 Sometimes you need to analyze data that lives in a spreadsheet.
 This chapter will introduce you to tools for working with data in Excel spreadsheets and Google Sheets.
 This will build on much of what you've learned in @sec-data-import, but we will also discuss additional considerations and complexities when working with data from spreadsheets.
@@ -404,7 +404,7 @@ read_excel("data/bake-sale.xlsx")
 
 ### Formatted output
 
-The readxl package is a light-weight solution for writing a simple Excel spreadsheet, but if you're interested in additional features like writing to sheets within a spreadsheet and styling, you will want to use the **openxlsx** package.
+The writexl package is a light-weight solution for writing a simple Excel spreadsheet, but if you're interested in additional features like writing to sheets within a spreadsheet and styling, you will want to use the **openxlsx** package.
 Note that this package is not part of the tidyverse so the functions and workflows may feel unfamiliar.
 For example, function names are camelCase, multiple functions can't be composed in pipelines, and arguments are in a different order than they tend to be in the tidyverse.
 However, this is ok.

@@ -4,7 +4,7 @@
 #| results: "asis"
 #| echo: false
 source("_common.R")
-status("polishing")
+status("complete")
 ```
 
 This vignette introduces you to the basics of web scraping with [rvest](https://rvest.tidyverse.org).
@@ -67,7 +67,7 @@ Note, however, the situation is rather different in Europe where courts have fou
 
 Even if the data is public, you should be extremely careful about scraping personally identifiable information like names, email addresses, phone numbers, dates of birth, etc.
 Europe has particularly strict laws about the collection of storage of such data (GDPR), and regardless of where you live you're likely to be entering an ethical quagmire.
-For example, in 2016, a group of researchers scraped public profile information (e.g., usernames, age, gender, location, etc.) about 70,000 people on the dating site OkCupid and they publicly released these data without any attempts for anonymization.
+For example, in 2016, a group of researchers scraped public profile information (e.g. usernames, age, gender, location, etc.) about 70,000 people on the dating site OkCupid and they publicly released these data without any attempts for anonymization.
 While the researchers felt that there was nothing wrong with this since the data were already public, this work was widely condemned due to ethics concerns around identifiability of users whose information was released in the dataset.
 If your work involves scraping personally identifiable information, we strongly recommend reading about the OkCupid study as well as similar studies with questionable research ethics involving the acquisition and release of personally identifiable information.[^webscraping-3]
 
@@ -326,22 +326,10 @@ Here's a simple HTML table with two columns and three rows:
 ```{r}
 html <- minimal_html("
   <table class='mytable'>
-    <tr>
-      <th>x</th>
-      <th>y</th>
-    </tr>
-    <tr>
-      <td>1.5</td>
-      <td>2.7</td>
-    </tr>
-    <tr>
-      <td>4.9</td>
-      <td>1.3</td>
-    </tr>
-    <tr>
-      <td>7.2</td>
-      <td>8.1</td>
-    </tr>
+    <tr><th>x</th>   <th>y</th></tr>
+    <tr><td>1.5</td> <td>2.7</td></tr>
+    <tr><td>4.9</td> <td>1.3</td></tr>
+    <tr><td>7.2</td> <td>8.1</td></tr>
   </table>
   ")
 ```
@@ -455,6 +443,7 @@ At the time we wrote this chapter, the page looked like @fig-scraping-imdb.
 
 ```{r}
 #| label: fig-scraping-imdb
+#| echo: false
 #| fig-cap: > 
 #|   Screenshot of the IMDb top movies web page taken on 2022-12-05.
 #| fig-alt: >
