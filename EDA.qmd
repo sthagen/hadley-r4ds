@@ -265,7 +265,7 @@ You'll need to figure out what caused them (e.g. a data entry error) and disclos
     What happens if you leave `binwidth` unset?
     What happens if you try and zoom so only half a bar shows?
 
-## Unusual values {#sec-missing-values-eda}
+## Unusual values {#sec-unusual-values-eda}
 
 If you've encountered unusual values in your dataset, and simply want to move on to the rest of your analysis, you have two options.
 
@@ -325,14 +325,14 @@ For example, in `nycflights13::flights`[^eda-1], missing values in the `dep_time
 So you might want to compare the scheduled departure times for cancelled and non-cancelled times.
 You can do this by making a new variable with `is.na()`.
 
-[^eda-1]: Remember that when need to be explicit about where a function (or dataset) comes from, we'll use the special form `package::function()` or `package::dataset`.
+[^eda-1]: Remember that when we need to be explicit about where a function (or dataset) comes from, we'll use the special form `package::function()` or `package::dataset`.
 
 ```{r}
 #| fig-alt: >
 #|   A frequency polygon of scheduled departure times of flights. Two lines 
 #|   represent flights that are cancelled and not cancelled. The x-axis ranges 
 #|   from 0 to 25 minutes and the y-axis ranges from 0 to 10000. The number of 
-#|   flights not cancelled are much higher than those not cancelled.
+#|   flights not cancelled are much higher than those cancelled.
 
 nycflights13::flights |> 
   mutate(
@@ -384,7 +384,7 @@ The default appearance of `geom_freqpoly()` is not that useful for that sort of 
 ```{r}
 #| fig-alt: >
 #|   Bar chart of cuts of diamonds showing large variability between the 
-#|   frenquencies of various cuts. Fair diamonds have the lowest frequency, 
+#|   frequencies of various cuts. Fair diamonds have the lowest frequency, 
 #|   then Good, then Very Good, then Premium, and then Ideal.
 
 ggplot(diamonds, aes(x = cut)) + 
@@ -428,7 +428,7 @@ ggplot(diamonds, aes(x = cut, y = price)) +
 ```
 
 We see much less information about the distribution, but the boxplots are much more compact so we can more easily compare them (and fit more on one plot).
-It supports the counter-intuitive finding that better quality diamonds are cheaper on average!
+It supports the counter-intuitive finding that better quality diamonds are typically cheaper!
 In the exercises, you'll be challenged to figure out why.
 
 `cut` is an ordered factor: fair is worse than good, which is worse than very good and so on.
@@ -506,7 +506,7 @@ One way to do that is to rely on the built-in `geom_count()`:
 #| fig-alt: >
 #|   A scatterplot of color vs. cut of diamonds. There is one point for each
 #|   combination of levels of cut (Fair, Good, Very Good, Premium, and Ideal) 
-#|   abd color (D, E, F, G, G, I, and J). The sizes of the points represent 
+#|   and color (D, E, F, G, G, I, and J). The sizes of the points represent 
 #|   the number of observations for that combination. The legend indicates 
 #|   that these sizes range between 1000 and 4000.
 
