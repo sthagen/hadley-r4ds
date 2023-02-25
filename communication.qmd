@@ -174,8 +174,6 @@ This makes it possible to add textual labels to your plots.
 There are two possible sources of labels.
 First, you might have a tibble that provides labels.
 In the following plot we pull out the cars with the highest engine size in each drive type and save their information as a new data frame called `label_info`.
-In order to create the `label_info` data frame we used a number of new dplyr functions.
-You'll learn more about each of these soon!
 
 ```{r}
 label_info <- mpg |>
@@ -702,7 +700,7 @@ For example, if we map presidential party to color, we want to use the standard 
 #|   Line plot of id number of presidents versus the year they started their 
 #|   presidency. Start year is marked with a point and a segment that starts 
 #|   there and ends at the end of the presidency. Democratic presidents are 
-#|   represented in black and Republicans in red.
+#|   represented in blue and Republicans in red.
 
 presidential |>
   mutate(id = 33 + row_number()) |>
@@ -1016,7 +1014,7 @@ Patchwork divides up the area you have allotted for your plot using this scale a
 #|   Five plots laid out such that first two plots are next to each other. Plots 
 #|   three and four are underneath them. And the fifth plot stretches under them. 
 #|   The patchworked plot is titled "City and highway mileage for cars with 
-#|   different drive trains" and captioned "Source: Source: https://fueleconomy.gov". 
+#|   different drive trains" and captioned "Source: https://fueleconomy.gov". 
 #|   The first two plots are side-by-side box plots. Plots 3 and 4 are density 
 #|   plots. And the fifth plot is a faceted scatterplot. Each of these plots show 
 #|   geoms colored by drive train, but the patchworked plot has only one legend 
@@ -1046,7 +1044,7 @@ p5 <- ggplot(mpg, aes(x = cty, y = hwy, color = drv)) +
 (guide_area() / (p1 + p2) / (p3 + p4) / p5) +
   plot_annotation(
     title = "City and highway mileage for cars with different drive trains",
-    caption = "Source: Source: https://fueleconomy.gov."
+    caption = "Source: https://fueleconomy.gov."
   ) +
   plot_layout(
     guides = "collect",
