@@ -96,7 +96,7 @@ It's OK to add extra spaces if it improves alignment.
 For example, if you're creating multiple variables in `mutate()`, you might want to add spaces so that all the `=` line up.[^workflow-style-1]
 This makes it easier to skim the code.
 
-[^workflow-style-1]: Since `dep_time` is in `HMM` or `HHMM` fomat, we use integer division (`%/%`) to get hour and remainder (also known as modulo, `%%`) to get minute.
+[^workflow-style-1]: Since `dep_time` is in `HMM` or `HHMM` format, we use integer division (`%/%`) to get hour and remainder (also known as modulo, `%%`) to get minute.
 
 ```{r}
 #| eval: false
@@ -242,6 +242,9 @@ flights |>
   geom_point()
 ```
 
+Watch for the transition from `|>` to `+`.
+We wish this transition wasn't necessary, but unfortunately, ggplot2 was written before the pipe was discovered.
+
 ## Sectioning comments
 
 As your scripts get longer, you can use **sectioning** comments to break up your file into manageable pieces:
@@ -289,6 +292,8 @@ In this chapter, you've learn the most important principles of code style.
 These may feel like a set of arbitrary rules to start with (because they are!) but over time, as you write more code, and share code with more people, you'll see how important a consistent style is.
 And don't forget about the styler package: it's a great way to quickly improve the quality of poorly styled code.
 
-So far, we've worked with datasets bundled inside of R packages.
-This makes it easier to get some practice on pre-prepared data, but obviously your data won't be available in this way.
-So in the next chapter, you're going to learn how load data from disk into your R session using the readr package.
+In the next chapter, we switch back to data science tools, learning about tidy data.
+Tidy data is a consistent way of organizing your data frames that is used throughout the tidyverse.
+This consistency makes your life easier because once you have tidy data, it just works with the vast majority of tidyverse functions.
+Of course, life is never easy, and most datasets you encounter in the wild will not already be tidy.
+So we'll also teach you how to use the tidyr package to tidy your untidy data.
