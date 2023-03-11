@@ -73,13 +73,29 @@ Let's create visualizations that we can use to answer these questions.
 
 You can test your answer with the `penguins` **data frame** found in palmerpenguins (a.k.a. `palmerpenguins::penguins`).
 A data frame is a rectangular collection of variables (in the columns) and observations (in the rows).
-`penguins` contains `r nrow(penguins)` observations collected and made available by Dr. Kristen Gorman and the Palmer Station, Antarctica LTER[^data-visualize-2]. In this context, a variable refers to an attribute of all the penguins, and an observation refers to all the attributes of a single penguin.
+`penguins` contains `r nrow(penguins)` observations collected and made available by Dr. Kristen Gorman and the Palmer Station, Antarctica LTER[^data-visualize-2].
 
 [^data-visualize-2]: Horst AM, Hill AP, Gorman KB (2020).
     palmerpenguins: Palmer Archipelago (Antarctica) penguin data.
     R package version 0.1.0.
     <https://allisonhorst.github.io/palmerpenguins/>.
     doi: 10.5281/zenodo.3960218.
+
+To make the discussion easier, let's define some terms:
+
+-   A **variable** is a quantity, quality, or property that you can measure.
+
+-   A **value** is the state of a variable when you measure it.
+    The value of a variable may change from measurement to measurement.
+
+-   An **observation** is a set of measurements made under similar conditions (you usually make all of the measurements in an observation at the same time and on the same object).
+    An observation will contain several values, each associated with a different variable.
+    We'll sometimes refer to an observation as a data point.
+
+-   **Tabular data** is a set of values, each associated with a variable and an observation.
+    Tabular data is *tidy* if each value is placed in its own "cell", each variable in its own column, and each observation in its own row.
+
+In this context, a variable refers to an attribute of all the penguins, and an observation refers to all the attributes of a single penguin.
 
 Type the name of the data frame in the console and R will print a preview of its contents.
 Note that it says `tibble` on top of this preview.
@@ -155,7 +171,7 @@ ggplot(data = penguins)
 
 Next, we need to tell `ggplot()` how the information from our data will be visually represented.
 The `mapping` argument of the `ggplot()` function defines how variables in your dataset are mapped to visual properties (**aesthetics**) of your plot.
-The `mapping` argument is always defined using the `aes()` function, and the `x` and `y` arguments of `aes()` specify which variables to map to the x and y axes.
+The `mapping` argument is always defined in the `aes()` function, and the `x` and `y` arguments of `aes()` specify which variables to map to the x and y axes.
 For now, we will only map flipper length to the `x` aesthetic and body mass to the `y` aesthetic.
 ggplot2 looks for the mapped variables in the `data` argument, in this case, `penguins`.
 
@@ -521,7 +537,6 @@ One commonly used visualization for distributions of continuous variables is a h
 
 ```{r}
 #| warning: false
-#| layout-ncol: 2
 #| fig-alt: >
 #|   A histogram of body masses of penguins. The distribution is unimodal 
 #|   and right skewed, ranging between approximately 2500 to 6500 grams.
@@ -541,18 +556,16 @@ A binwidth of 200 provides a sensible balance.
 
 ```{r}
 #| warning: false
-#| layout-ncol: 3
+#| layout-ncol: 2
+#| fig-width: 3
 #| fig-alt: >
-#|   Three histograms of body masses of penguins, one with binwidth of 20 
-#|   (right), one with binwidth of 200 (center), and one with binwidth of 
-#|   2000 (left). The histogram with binwidth of 20 shows lots of ups and 
-#|   downs in the heights of the bins, creating a jagged outline. The histogram 
-#|   with binwidth of 2000 shows only three bins.
+#|   Two histograms of body masses of penguins, one with binwidth of 20 
+#|   (left) and one with binwidth of 2000 (right). The histogram with binwidth 
+#|   of 20 shows lots of ups and downs in the heights of the bins, creating a 
+#|   jagged outline. The histogram  with binwidth of 2000 shows only three bins.
 
 ggplot(penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 20)
-ggplot(penguins, aes(x = body_mass_g)) +
-  geom_histogram(binwidth = 200)
 ggplot(penguins, aes(x = body_mass_g)) +
   geom_histogram(binwidth = 2000)
 ```
@@ -686,25 +699,29 @@ Note the terminology we have used here:
 ### Two categorical variables
 
 We can use stacked bar plots to visualize the relationship between two categorical variables.
+For example, the following two stacked bar plots both display the relationship between `island` and `species`, or specifically, visualizing the distribution of `species` within each island.
 
-The two stacked bar plots below both display the relationship between `island` and `species`, or specifically, visualizing the distribution of `species` within each island.
-The plot on the left shows the frequencies of each species of penguins on each island and the plot on the right shows the relative frequencies (proportions) of each species within each island (despite the incorrectly labeled y-axis that says "count").
+The first plot shows the frequencies of each species of penguins on each island and the plot on the right shows the relative frequencies (proportions) of each species within each island (despite the incorrectly labeled y-axis that says "count").
 The plot of frequencies show that there are equal numbers of Adelies on each island.
 But we don't have a good sense of the percentage balance within each island.
 In the proportions plot, we've lost our notion of total penguins, but we've gained the advantage of "breakdown by island".
 
-The relative frequency plot, created by setting `position = "fill"` in the geom is more useful for comparing species distributions across islands since it's not affected by the unequal numbers of penguins across the islands.
-Based on the plot on the left, we can see that Gentoo penguins all live on Biscoe island and make up roughly 75% of the penguins on that island, Chinstrap all live on Dream island and make up roughly 50% of the penguins on that island, and Adelie live on all three islands and make up all of the penguins on Torgersen.
-
 ```{r}
-#| layout-ncol: 2
 #| fig-alt: >
-#|   Bar plots of penguin species by island (Biscoe, Dream, and Torgersen).
-#|   On the right, frequencies of species are shown. On the left, relative 
-#|   frequencies of species are shown.
-
+#|   Bar plots of penguin species by island (Biscoe, Dream, and Torgersen)
 ggplot(penguins, aes(x = island, fill = species)) +
   geom_bar()
+```
+
+The second plot is a relative frequency plot, created by setting `position = "fill"` in the geom is more useful for comparing species distributions across islands since it's not affected by the unequal numbers of penguins across the islands.
+Using this plot we can see that Gentoo penguins all live on Biscoe island and make up roughly 75% of the penguins on that island, Chinstrap all live on Dream island and make up roughly 50% of the penguins on that island, and Adelie live on all three islands and make up all of the penguins on Torgersen.
+
+```{r}
+#| fig-alt: >
+#|   Bar plots of penguin species by island (Biscoe, Dream, and Torgersen)
+#|   the bars are scaled to the same height, making it a relative frequencies 
+#|   plot
+
 ggplot(penguins, aes(x = island, fill = species)) +
   geom_bar(position = "fill")
 ```
@@ -775,7 +792,8 @@ You will learn about many other geoms for visualizing distributions of variables
 
 ### Exercises
 
-1.  Which variables in `mpg` are categorical?
+1.  The `mpg` data frame that is bundled with the ggplot2 package contains `r nrow(mpg)` observations collected by the US Environmental Protection Agency on `r mpg |> distinct(model) |> nrow()` car models.
+    Which variables in `mpg` are categorical?
     Which variables are numerical?
     (Hint: Type `?mpg` to read the documentation for the dataset.) How can you see this information when you run `mpg`?
 
@@ -839,7 +857,7 @@ ggsave(filename = "penguin-plot.png")
 ```{r}
 #| include: false
 
-file.remove("my-plot.png")
+file.remove("penguin-plot.png")
 ```
 
 This will save your plot to your working directory, a concept you'll learn more about in @sec-workflow-scripts-projects.

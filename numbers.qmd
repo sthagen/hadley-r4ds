@@ -3,6 +3,7 @@
 ```{r}
 #| results: "asis"
 #| echo: false
+
 source("_common.R")
 status("complete")
 ```
@@ -51,7 +52,7 @@ x <- c("$1,234", "USD 3,513", "59%")
 parse_number(x)
 ```
 
-## Counts
+## Counts {#sec-counts}
 
 It's surprising how much data science you can do with just counts and a little basic arithmetic, so dplyr strives to make counting as easy as possible with `count()`.
 This function is great for quick exploration and checks during analysis:
@@ -638,7 +639,7 @@ We won't explain `sd()` here since you're probably already familiar with it, but
 
 We can use this to reveal a small oddity in the `flights` data.
 You might expect the spread of the distance between origin and destination to be zero, since airports are always in the same place.
-But the code below makes it looks like one airport, [EGE](https://en.wikipedia.org/wiki/Eagle_County_Regional_Airport), might have moved.
+But the code below reveals a data oddity for airport [EGE](https://en.wikipedia.org/wiki/Eagle_County_Regional_Airport):
 
 ```{r}
 flights |> 
@@ -679,6 +680,7 @@ This suggests that the mean is unlikely to be a good summary and we might prefer
 #|   leave a couple of minutes early), but there's still a very steep
 #|   decay after that.
 #| fig-asp: 0.5
+
 library(patchwork)
 
 full <- flights |>
@@ -694,19 +696,15 @@ full + delayed120
 ```
 
 It's also a good idea to check that distributions for subgroups resemble the whole.
-@fig-flights-dist-daily overlays a frequency polygon for each day.
+In the following plot 365 frequency polygons of `dep_delay`, one for each day, are overlaid.
 The distributions seem to follow a common pattern, suggesting it's fine to use the same summary for each day.
 
 ```{r}
-#| label: fig-flights-dist-daily
-#| fig-cap: >
-#|   365 frequency polygons of `dep_delay`, one for each day. The frequency
-#|   polygons appear to have the same shape, suggesting that it's reasonable
-#|   to compare days by looking at just a few summary statistics.
 #| fig-alt: >
 #|   The distribution of `dep_delay` is highly right skewed with a strong
 #|   peak slightly less than 0. The 365 frequency polygons are mostly 
 #|   overlapping forming a thick black bland.
+
 flights |>
   filter(dep_delay < 120) |> 
   ggplot(aes(x = dep_delay, group = interaction(day, month))) + 
@@ -772,6 +770,7 @@ For example:
 
 3.  Create a plot to further explore the adventures of EGE.
     Can you find any evidence that the airport moved locations?
+    Can you find another variable that might explain the difference?
 
 ## Summary
 
